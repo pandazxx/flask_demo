@@ -20,7 +20,6 @@ def redirect1():
 
 
 '''
-
   var host_name = window.location.hostname;
   if (host_name.startsWith('www')) {
     host_name = host_name.substr(4);
@@ -31,22 +30,26 @@ def redirect1():
 '''
 
 
+
 @app.route('/static/rd.js')
 def redirect_js():
     dest_host = 'index805.com'
+    print(1)
     js_template = '''
     var host_name = window.location.hostname;
-    var dest_host_name = '{}'
-    if (host_name != dest_host_name) {{
+    var dest_host_name = 'index805.com'
+    if (host_name != dest_host_name) {
       var new_url = window.location.protocol + "//" + dest_host_name + window.location.pathname + window.location.search;
       //window.location.href=new_url;
-    }}
+    }
     '''
-    resp = make_response(js_template.format(dest_host))
+    resp = make_response(js_template)
+    print(2)
     resp.set_cookie('is_redirected', max_age=3600 * 24, domain='index805.com')
+    print(3)
     return resp
 
 
 @app.route('/request_info')
 def request_info():
-    return "host: {}\nheaders: {}".format(request.headers['HOST'], request.headers)
+    return render_template("request_info.html", headers=request.headers)
